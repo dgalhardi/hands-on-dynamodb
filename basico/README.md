@@ -33,7 +33,7 @@ consulta.
 Os componentes básicos do DynamoDB são: Tabelas, itens e atributos.
 O diagrama a seguir mostra uma tabela People com alguns itens,sendo que cada item representa uma pessoa e e cada item é composto por um ou mais atributos.
 
-![alt text](https://github.com/diegowsu/hands-on-dynamodb/blob/main/HowItWorksPeople.jpg?raw=true)
+![Screenshot](HowItWorksPeople.png)
 
 
 
