@@ -1,3 +1,5 @@
+![Screenshot](imagens/logotipo.png)
+
 # O que é o Amazon DynamoDB?
 
 DynamoDB é um serviço de banco de dados NoSQL fornecido pela Amazon Web Services (AWS), totalmente gerenciado, ou seja, sem necessidade
@@ -105,6 +107,7 @@ ser feita em uma replica será feita em duas, utilizando 2 CUs ao invés de 1.
 A figura abaixo demonstra como é o Local Secondary Index (LSIs)
 
 ![Screenshot](imagens/localindex.png)
+Fonte: amazon.aws
 
 - Partition key é sempre a mesma
 - Você pode criar Sort Keys alternativas
@@ -115,6 +118,7 @@ A figura abaixo demonstra como é o Local Secondary Index (LSIs)
 A figura abaixo demonstra como é o Global Secondary Index (GSI)
 
 ![Screenshot](imagens/globalindex.png)
+Fonte: amazon.aws
 
 - Você pode utilizar outros atributos como Partition Key que não precisa ser única
 - Podemos pensar nela como uma shadow ou powerlow table
@@ -135,10 +139,12 @@ DynamoDB irá consumir mais.
 A conta para criar partições é mostrado na figura abaixo:
 
 ![Screenshot](imagens/contaparticoes.png)
+Fonte: amazon.aws
 
 Exemplificando. Uma tabela com 8 GB e capacidade de leitura de 5000 e 500 de escrita terá 3 partições, conforme imagem abaixo.
 
 ![Screenshot](imagens/exemploparticao.png)
+Fonte: amazon.aws
 
 # Por que isso é importante?
 Isso é importante porque as RCUs WCUs provisionadas são distribuídas através dessas partições. E se em algum momento você tiver vários acessos a uma mesma partição, excedendo o limite, podemos ter uma hot key e ter throttling.
@@ -161,11 +167,13 @@ A primeira seria criar vários itens, onde cada item representa um nível. Como 
 Utilizando como exemplo a imagem abaixo, o problema aqui seria que para escrever o produto 2, por exemplo, você utilizaria 4 WCUs ao invés de 1.
 
 ![Screenshot](imagens/modelagem1.png)
+Fonte: amazon.aws
 
 A segunda é armazenar essa hierarquia como Documento (JSON).
 Em uma hierarquia pequena, essa é a solução ideal. Caso contrário é melhor optar pela solução anterior, uma vez que os itens são limitados a 400 KB.
 
 ![Screenshot](imagens/modelagem2.png)
+Fonte: amazon.aws
 
 
 
