@@ -50,6 +50,16 @@ Contudo nem tudo são flores. Algumas desvantagens:
 - Inflexibilidade de adicionar novos padrões de acesso;
 - A dificuldade de exportar as tabelas para análise
 
+# Integrações
+
+Algumas deas integrações do DynamoDB
+
+![Screenshot](imagens/IntegraçõesDynamoDB.png)
+
+# Comparativo com Bancos RDMS
+
+![Screenshot](imagens/comparativo.png)
+
 # Preço
 Os valores podem sofrer variações de acordo com a capacidade máxima e mínima desejada, especificações, utilização do serviço e região. Há uma questão muito importante: o DynamoDB altera automaticamente a escala de acordo com a sua utilização e processa o provisionamento de recursos.
 A AWS também disponibiliza uma versão gratuita com 25GB de armazenamento e até 200 milhões de solicitações por mês.
@@ -129,6 +139,34 @@ A conta para criar partições é mostrado na figura abaixo:
 Exemplificando. Uma tabela com 8 GB e capacidade de leitura de 5000 e 500 de escrita terá 3 partições, conforme imagem abaixo.
 
 ![Screenshot](imagens/exemploparticao.png)
+
+# Por que isso é importante?
+Isso é importante porque as RCUs WCUs provisionadas são distribuídas através dessas partições. E se em algum momento você tiver vários acessos a uma mesma partição, excedendo o limite, podemos ter uma hot key e ter throttling.
+
+# Throttling
+Throttling ocorre quando o throughput for além do provisionado por um longo tempo. Motivos para esse tempo maior seriam:
+Vários acessos ao mesmo item (hot key) ou mesma partição (hot partition)
+Items muito grandes
+Misturar hot data (dados novos, adicionados e consultados em grande quantidade) e cold data (dados antigos, consultados com uma frequência bem menor) quando temos tabelas baseadas em período de tempo como logs e estatísticas.
+
+# Como evitar Throttling?
+Segundo o Developer guide do DynamoDB, isso é evitado criando tabelas onde o atributo da partition key tem uma grande cardinalidade e um grande número de valores distintos e randômicos. Um bom exemplo aqui seria utilizar UUID (universal unique identifier) como valor.
+A busca também deve ser feita de forma uniforme através do tempo, evitando assim sobrecarregar uma partição.
+
+# Modelagem de dados
+Diferente do banco relacional, aqui o banco é desnormalizado de forma que seja possível recuperar todo registro na mesma consulta, sem precisar fazer joins para acessar diversas tabelas.
+Como representar a hierarquia de dados?
+Existem duas formas
+A primeira seria criar vários itens, onde cada item representa um nível. Como uma relação 1 para 1.
+Utilizando como exemplo a imagem abaixo, o problema aqui seria que para escrever o produto 2, por exemplo, você utilizaria 4 WCUs ao invés de 1.
+
+![Screenshot](imagens/modelagem1.png)
+
+A segunda é armazenar essa hierarquia como Documento (JSON).
+Em uma hierarquia pequena, essa é a solução ideal. Caso contrário é melhor optar pela solução anterior, uma vez que os itens são limitados a 400 KB.
+
+![Screenshot](imagens/modelagem2.png)
+
 
 
 
