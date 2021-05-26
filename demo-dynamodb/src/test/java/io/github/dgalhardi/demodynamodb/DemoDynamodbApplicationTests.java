@@ -9,5 +9,4 @@ class DemoDynamodbApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
