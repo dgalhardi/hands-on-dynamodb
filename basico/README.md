@@ -54,7 +54,7 @@ Contudo nem tudo são flores. Algumas desvantagens:
 
 # Integrações
 
-Algumas deas integrações do DynamoDB
+Algumas das integrações do DynamoDB
 
 ![Screenshot](imagens/IntegraçõesDynamoDB.png)
 
